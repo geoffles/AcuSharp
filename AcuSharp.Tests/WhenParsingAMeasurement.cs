@@ -147,7 +147,7 @@ namespace AcuSharp.Tests
 
             var result = new MetricMeasurement(raw);
 
-            Assert.Equal(new DateTime(2021, 09, 29, 8, 32, 1), result.dateutc);
+            Assert.Equal(new DateTime(2021, 09, 29, 8, 32, 1, DateTimeKind.Utc), result.dateutc);
             Assert.Equal("ABC123ABC123", result.id);
             Assert.Equal("5N1", result.mt);
             Assert.Equal("12341234", result.sensor);
@@ -173,11 +173,11 @@ namespace AcuSharp.Tests
         [Fact]
         public void ThenImperialMeasurementsMustRevertToTheOriginalString()
         {
-            const string TARGET_RESULT = "?&dateutc=2021-09-29T08:32:01&id=ABC123ABC123&mt=5N1&sensor=12341234&sensorbattery=normal&rssi=1&hubbattery=normal&baromin=30.21&humidity=33&tempf=82.8&windspeedmph=7&winddir=270&windgustmph=7&windgustdir=270&windspeedavgmph=5&heatindex=81.3&feelslike=80.6&windchill=82.8&dewptf=50.7&dailyrainin=1.80&rainin=0.10";
+            const string TARGET_RESULT = "?&dateutc=2021-09-29T18%3a32%3a01&id=ABC123ABC123&mt=5N1&sensor=12341234&sensorbattery=normal&rssi=1&hubbattery=normal&baromin=30.21&humidity=33&tempf=82.8&windspeedmph=7&winddir=270&windgustmph=7&windgustdir=270&windspeedavgmph=5&heatindex=81.3&feelslike=80.6&windchill=82.8&dewptf=50.7&dailyrainin=1.80&rainin=0.10";
 
             var imperial = new ImperialMeasurement(new RawMeasurement(new QueryCollection(new Dictionary<string, StringValues>
             {
-                ["dateutc"] = "2021-09-29T08:32:01",
+                ["dateutc"] = "2021-09-29T18:32:01",
                 ["id"] = "ABC123ABC123",
                 ["mt"] = "5N1",
                 ["sensor"] = "12341234",

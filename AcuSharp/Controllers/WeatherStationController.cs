@@ -33,7 +33,7 @@ namespace AcuSharp.Controllers
             var rawMeasurement = new RawMeasurement(Request.Query);
             Console.WriteLine(Request.QueryString);
 
-            IAcuriteService acurite = new DummyAcuriteService();
+            IAcuriteService acurite = new AcuriteService();
 
             var forwardResponse = await acurite.PostMeasurement(Request.QueryString);
             Console.WriteLine($"{DateTime.Now}: {forwardResponse.StatusCode}");

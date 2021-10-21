@@ -1,62 +1,44 @@
-﻿using System;
+﻿using AcuSharp.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace AcuSharp.Models
 {
-    public static class Converter
-    {
-        public static double ToHpa(this double @in)
-        {
-            return Math.Round(@in * 33.86389, 1, MidpointRounding.AwayFromZero);
-        }
-
-        public static double ToMm(this double @in)
-        {
-            return Math.Round(@in * 25.4d, 2, MidpointRounding.AwayFromZero);
-        }
-
-        public static double ToKph(this double mph)
-        {
-            return Math.Round(mph * 1.609344, 1, MidpointRounding.AwayFromZero);
-        }
-
-        public static double ToC(this double f)
-        {
-            return Math.Round((f - 32d) * (5 / 9d), 1, MidpointRounding.AwayFromZero);
-        }
-    }
-
     public class MetricMeasurement
     {
+        private readonly ImperialMeasurement _imperialMeasurement;
+
         public MetricMeasurement(RawMeasurement raw)
         {
-            var measurement = new ImperialMeasurement(raw);
+            _imperialMeasurement = new ImperialMeasurement(raw);
 
-            dateutc = measurement.dateutc;
-            id = measurement.id;
-            mt = measurement.mt;
-            sensor = measurement.sensor;
-            sensorbattery = measurement.sensorbattery;
-            rssi = measurement.rssi;
-            hubbattery = measurement.hubbattery;
-            baromhpa = measurement.baromin.ToHpa();
-            humidity = measurement.humidity;
-            tempc = measurement.tempf.ToC();
-            windspeedkph = measurement.windspeedmph.ToKph();
-            winddir = measurement.winddir;
-            windgustkph = measurement.windgustmph.ToKph();
-            windgustdir = measurement.windgustdir;
-            windspeedavgkph = measurement.windspeedavgmph.ToKph();
-            heatindexc = measurement.heatindex.ToC();
-            feelslikec = measurement.feelslike.ToC();
-            windchillc = measurement.windchill.ToC();
-            dewptc = measurement.dewptf.ToC();
-            dailyrainmm = measurement.dailyrainin.ToMm();
-            rainmm = measurement.rainin.ToMm();
+            dateutc = _imperialMeasurement.dateutc;
+            id = _imperialMeasurement.id;
+            mt = _imperialMeasurement.mt;
+            sensor = _imperialMeasurement.sensor;
+            sensorbattery = _imperialMeasurement.sensorbattery;
+            rssi = _imperialMeasurement.rssi;
+            hubbattery = _imperialMeasurement.hubbattery;
+            baromhpa = _imperialMeasurement.baromin.ToHpa();
+            humidity = _imperialMeasurement.humidity;
+            tempc = _imperialMeasurement.tempf.ToC();
+            windspeedkph = _imperialMeasurement.windspeedmph.ToKph();
+            winddir = _imperialMeasurement.winddir;
+            windgustkph = _imperialMeasurement.windgustmph.ToKph();
+            windgustdir = _imperialMeasurement.windgustdir;
+            windspeedavgkph = _imperialMeasurement.windspeedavgmph.ToKph();
+            heatindexc = _imperialMeasurement.heatindex.ToC();
+            feelslikec = _imperialMeasurement.feelslike.ToC();
+            windchillc = _imperialMeasurement.windchill.ToC();
+            dewptc = _imperialMeasurement.dewptf.ToC();
+            dailyrainmm = _imperialMeasurement.dailyrainin.ToMm();
+            rainmm = _imperialMeasurement.rainin.ToMm();
 
         }
+
+        public ImperialMeasurement ToImperialMeasurement() { return _imperialMeasurement; }
 
         public DateTime dateutc { get; private set; }
         public string id { get; private set; }

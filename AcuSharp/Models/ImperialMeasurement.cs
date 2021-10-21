@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AcuSharp.Util;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -12,7 +13,7 @@ namespace AcuSharp.Models
     {   
         public ImperialMeasurement(RawMeasurement measurement)
         {
-            dateutc = DateTime.Parse(measurement.dateutc);
+            dateutc = DateTime.Parse(measurement.dateutc + "Z").ToUniversalTime();
             id = measurement.id;
             mt = measurement.mt;
             sensor = measurement.sensor;
@@ -37,32 +38,34 @@ namespace AcuSharp.Models
 
         public string ToQueryString()
         {
-            var sb = new StringBuilder();
-
-            sb.Append("?&dateutc="); sb.Append(dateutc.ToString("yyyy-MM-ddThh:mm:ss"));
-            sb.Append("&id="); sb.Append(id);
-            sb.Append("&mt="); sb.Append(mt);
-            sb.Append("&sensor="); sb.Append(sensor);
-            sb.Append("&sensorbattery="); sb.Append(sensorbattery);
-            sb.Append("&rssi="); sb.Append(rssi);
-            sb.Append("&hubbattery="); sb.Append(hubbattery);
-            sb.Append("&baromin="); sb.Append(baromin.ToString(CultureInfo.InvariantCulture));
-            sb.Append("&humidity="); sb.Append(humidity.ToString(CultureInfo.InvariantCulture));
-            sb.Append("&tempf="); sb.Append(tempf.ToString(CultureInfo.InvariantCulture));
-            sb.Append("&windspeedmph="); sb.Append(windspeedmph.ToString(CultureInfo.InvariantCulture));
-            sb.Append("&winddir="); sb.Append(winddir.ToString(CultureInfo.InvariantCulture));
-            sb.Append("&windgustmph="); sb.Append(windgustmph.ToString(CultureInfo.InvariantCulture));
-            sb.Append("&windgustdir="); sb.Append(windgustdir.ToString(CultureInfo.InvariantCulture));
-            sb.Append("&windspeedavgmph="); sb.Append(windspeedavgmph.ToString(CultureInfo.InvariantCulture));
-            sb.Append("&heatindex="); sb.Append(heatindex.ToString(CultureInfo.InvariantCulture));
-            sb.Append("&feelslike="); sb.Append(feelslike.ToString(CultureInfo.InvariantCulture));
-            sb.Append("&windchill="); sb.Append(windchill.ToString(CultureInfo.InvariantCulture));
-            sb.Append("&dewptf="); sb.Append(dewptf.ToString(CultureInfo.InvariantCulture));
-            sb.Append("&dailyrainin="); sb.Append(dailyrainin.ToString("0.00", CultureInfo.InvariantCulture));
-            sb.Append("&rainin="); sb.Append(rainin.ToString("0.00", CultureInfo.InvariantCulture));
+            var sb = new StringBuilder()            
+                .Append("?")
+                .AppendUrlQuery("dateutc", dateutc.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss"))
+                .AppendUrlQuery("id", id)
+                .AppendUrlQuery("mt", mt)
+                .AppendUrlQuery("sensor", sensor)
+                .AppendUrlQuery("sensorbattery", sensorbattery)
+                .AppendUrlQuery("rssi", rssi)
+                .AppendUrlQuery("hubbattery", hubbattery)
+                .AppendUrlQuery("baromin", baromin.ToString(CultureInfo.InvariantCulture))
+                .AppendUrlQuery("humidity", humidity.ToString(CultureInfo.InvariantCulture))
+                .AppendUrlQuery("tempf", tempf.ToString(CultureInfo.InvariantCulture))
+                .AppendUrlQuery("windspeedmph", windspeedmph.ToString(CultureInfo.InvariantCulture))
+                .AppendUrlQuery("winddir", winddir.ToString(CultureInfo.InvariantCulture))
+                .AppendUrlQuery("windgustmph", windgustmph.ToString(CultureInfo.InvariantCulture))
+                .AppendUrlQuery("windgustdir", windgustdir.ToString(CultureInfo.InvariantCulture))
+                .AppendUrlQuery("windspeedavgmph", windspeedavgmph.ToString(CultureInfo.InvariantCulture))
+                .AppendUrlQuery("heatindex", heatindex.ToString(CultureInfo.InvariantCulture))
+                .AppendUrlQuery("feelslike", feelslike.ToString(CultureInfo.InvariantCulture))
+                .AppendUrlQuery("windchill", windchill.ToString(CultureInfo.InvariantCulture))
+                .AppendUrlQuery("dewptf", dewptf.ToString(CultureInfo.InvariantCulture))
+                .AppendUrlQuery("dailyrainin", dailyrainin.ToString("0.00", CultureInfo.InvariantCulture))
+                .AppendUrlQuery("rainin", rainin.ToString("0.00", CultureInfo.InvariantCulture));
 
             return sb.ToString();
         }
+
+        
 
         public DateTime dateutc { get; private set; }
         public string id { get; private set; }

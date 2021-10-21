@@ -24,6 +24,8 @@ namespace AcuSharp.Services
 
                 var forwardResponse = await client.PostAsync(url, forwardRequestContent);
 
+                Console.WriteLine(forwardResponse.StatusCode);
+
                 return forwardResponse;
             }
         }

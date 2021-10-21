@@ -11,6 +11,15 @@ namespace AcuSharp.Services
 {
     public class InfluxOutput : IWeatherOutput
     {
+        public void Dispose()
+        {
+        }
+
+        public int RetryDelayMs()
+        {
+            return 1000;
+        }
+
         public void Write(MetricMeasurement measurement)
         {
             string token = "";
@@ -41,7 +50,7 @@ namespace AcuSharp.Services
                   .Field("dewptc", measurement.dewptc)
                   .Field("dailyrainmm", measurement.dailyrainmm)
                   .Field("rainmm", measurement.rainmm)
-                  .Timestamp(DateTime.UtcNow, WritePrecision.S);
+                  .Timestamp(measurement.dateutc.ToUniversalTime(), WritePrecision.S);
 
                 using (var writeApi = client.GetWriteApi())
                 {
