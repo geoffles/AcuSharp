@@ -50,6 +50,11 @@ namespace AcuSharp.Services
 
             Console.WriteLine(forwardResponse.StatusCode);
 
+            if (!forwardResponse.IsSuccessStatusCode)
+            {
+                throw new Exception("Non success response code.");
+            }
+
             return forwardResponse;
         }
     }
