@@ -32,24 +32,24 @@ namespace AcuSharp.Services
                   .Measurement("weather")
                   .Tag("deviceId", measurement.id)
                   .Tag("deviceType", measurement.mt)
-                  .Tag("sensorId", measurement.sensor)                 
-                  .Field("sensorbattery", measurement.sensorbattery)
-                  .Field("rssi", measurement.rssi)
-                  .Field("hubbattery", measurement.hubbattery)
-                  .Field("baromhpa", measurement.baromhpa)
-                  .Field("humidity", measurement.humidity)
-                  .Field("windspeedkph", measurement.windspeedkph)
-                  .Field("winddir", measurement.winddir)
-                  .Field("windgustkph", measurement.windgustkph)
-                  .Field("windspeedavgkph", measurement.windspeedavgkph)
-                  .Field("windgustdir", measurement.windgustdir)
-                  .Field("heatindexc", measurement.heatindexc)
-                  .Field("feelslikec", measurement.feelslikec)
-                  .Field("windchillc", measurement.windchillc)
-                  .Field("tempc", measurement.tempc)
-                  .Field("dewptc", measurement.dewptc)
-                  .Field("dailyrainmm", measurement.dailyrainmm)
-                  .Field("rainmm", measurement.rainmm)
+                  .Tag("sensorId", measurement.sensor)
+                  .NonNullField("sensorbattery", measurement.sensorbattery)
+                  .NonNullField("rssi", measurement.rssi)
+                  .NonNullField("hubbattery", measurement.hubbattery)
+                  .NonNullField("baromhpa", measurement.baromhpa)
+                  .NonNullField("humidity", measurement.humidity)
+                  .NonNullField("windspeedkph", measurement.windspeedkph)
+                  .NonNullField("winddir", measurement.winddir)
+                  .NonNullField("windgustkph", measurement.windgustkph)
+                  .NonNullField("windspeedavgkph", measurement.windspeedavgkph)
+                  .NonNullField("windgustdir", measurement.windgustdir)
+                  .NonNullField("heatindexc", measurement.heatindexc)
+                  .NonNullField("feelslikec", measurement.feelslikec)
+                  .NonNullField("windchillc", measurement.windchillc)
+                  .NonNullField("tempc", measurement.tempc)
+                  .NonNullField("dewptc", measurement.dewptc)
+                  .NonNullField("dailyrainmm", measurement.dailyrainmm)
+                  .NonNullField("rainmm", measurement.rainmm)
                   .Timestamp(measurement.dateutc.ToUniversalTime(), WritePrecision.S);
 
                 using (var writeApi = client.GetWriteApi())
@@ -57,6 +57,39 @@ namespace AcuSharp.Services
                     writeApi.WritePoint(bucket, org, point);
                 }
             }
+        }
+    }
+
+    static class Extensions
+    {
+        public static PointData NonNullField(this PointData pd, string field, string value)
+        {
+            if (value == null)
+            {
+                return pd;
+            }
+
+            return pd.Field(field, value);
+        }
+
+        public static PointData NonNullField(this PointData pd, string field, int? value)
+        {
+            if (!value.HasValue)
+            {
+                return pd;
+            }
+
+            return pd.Field(field, value.Value);
+        }
+
+        public static PointData NonNullField(this PointData pd, string field, double? value)
+        {
+            if (!value.HasValue)
+            {
+                return pd;
+            }
+
+            return pd.Field(field, value.Value);
         }
     }
 }

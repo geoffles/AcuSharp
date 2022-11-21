@@ -21,20 +21,20 @@ namespace AcuSharp.Models
             sensorbattery = _imperialMeasurement.sensorbattery;
             rssi = _imperialMeasurement.rssi;
             hubbattery = _imperialMeasurement.hubbattery;
-            baromhpa = _imperialMeasurement.baromin.ToHpa();
+            baromhpa = _imperialMeasurement.baromin?.ToHpa();
             humidity = _imperialMeasurement.humidity;
-            tempc = _imperialMeasurement.tempf.ToC();
-            windspeedkph = _imperialMeasurement.windspeedmph.ToKph();
+            tempc = _imperialMeasurement.tempf?.ToC();
+            windspeedkph = _imperialMeasurement.windspeedmph?.ToKph();
             winddir = _imperialMeasurement.winddir;
-            windgustkph = _imperialMeasurement.windgustmph.ToKph();
+            windgustkph = _imperialMeasurement.windgustmph?.ToKph();
             windgustdir = _imperialMeasurement.windgustdir;
-            windspeedavgkph = _imperialMeasurement.windspeedavgmph.ToKph();
-            heatindexc = _imperialMeasurement.heatindex.ToC();
-            feelslikec = _imperialMeasurement.feelslike.ToC();
-            windchillc = _imperialMeasurement.windchill.ToC();
-            dewptc = _imperialMeasurement.dewptf.ToC();
-            dailyrainmm = _imperialMeasurement.dailyrainin.ToMm();
-            rainmm = _imperialMeasurement.rainin.ToMm();
+            windspeedavgkph = _imperialMeasurement.windspeedavgmph?.ToKph();
+            heatindexc = _imperialMeasurement.heatindex?.ToC();
+            feelslikec = _imperialMeasurement.feelslike?.ToC();
+            windchillc = _imperialMeasurement.windchill?.ToC();
+            dewptc = _imperialMeasurement.dewptf?.ToC();
+            dailyrainmm = _imperialMeasurement.dailyrainin?.ToMm();
+            rainmm = _imperialMeasurement.rainin?.ToMm();
 
         }
 
@@ -47,19 +47,19 @@ namespace AcuSharp.Models
         public string sensorbattery { get; private set; }
         public string rssi { get; private set; }
         public string hubbattery { get; private set; }
-        public int humidity { get; private set; }
-        public int winddir { get; private set; }
-        public double windspeedkph { get; private set; }
-        public int windgustdir { get; private set; }
-        public double windgustkph { get; private set; }
-        public double windspeedavgkph { get; private set; }
-        public double heatindexc { get; private set; }
-        public double feelslikec { get; private set; }
-        public double windchillc { get; private set; }
-        public double tempc { get; private set; }
-        public double dewptc { get; private set; }
-        public double baromhpa { get; private set; }
-        public double dailyrainmm { get; private set; }
-        public double rainmm { get; private set; }
+        public int? humidity { get; private set; }
+        public int? winddir { get; private set; }
+        public double? windspeedkph { get; private set; }
+        public int? windgustdir { get; private set; }
+        public double? windgustkph { get; private set; }
+        public double? windspeedavgkph { get; private set; }
+        public double? heatindexc { get; private set; }
+        public double? feelslikec { get; private set; }
+        public double? windchillc { get; private set; }
+        public double? tempc { get; private set; }
+        public double? dewptc { get; private set; }
+        public double? baromhpa { get; private set; }
+        public double? dailyrainmm { get; private set; }
+        public double? rainmm { get; private set; }
     }
 }

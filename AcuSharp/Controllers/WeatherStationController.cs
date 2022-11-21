@@ -49,9 +49,14 @@ namespace AcuSharp.Controllers
 
             Response.Headers.Add("Content-Length", response.Length.ToString());
 
+            var metricMeasurement = new MetricMeasurement(rawMeasurement);
             var influxOutput = new InfluxOutput();
+            using(var mqtt = new MqttOutput())
+            {
+                mqtt.Write(metricMeasurement);
+            }
 
-            influxOutput.Write(new MetricMeasurement(rawMeasurement));
+            influxOutput.Write(metricMeasurement);
 
             var result = new ContentResult()
             {
